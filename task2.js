@@ -1,14 +1,16 @@
-function whatCentury(year) {
-    const century = Math.ceil(Number(year) / 100);
-    if (century >= 11 && century <= 13) return String(century + "th");
-    else if (century % 10 === 1) return String(century + "st");
-    else if (century % 10 === 2) return String(century + "nd");
-    else if (century % 10 === 3) return String(century + "rd");
-    else return String(century + "th");
+function ipv4Parser(ip, mask) {
+    const ipParts = ip.split('.');
+    const maskParts = mask.split('.');
+    const netParts = [];
+    const hostParts = [];
+    for (let i = 0; i <= 3; i++){
+        netParts[i] = Number(ipParts[i]) & Number(maskParts[i]);
+        hostParts[i] = Number(ipParts[i]) & (255 - Number(maskParts[i]));
+    }
+    return [netParts.join('.'), hostParts.join('.')];
 }
 
-console.log(whatCentury("1900")); // "19th"
-console.log(whatCentury("1901")); // "20th"
-console.log(whatCentury("2000")); // "20th"
-console.log(whatCentury("2001")); // "21st"
-console.log(whatCentury("2101")); // "22nd"
+console.log(ipv4Parser("192.168.2.1", "255.255.255.0"));// ["192.168.2.0", "0.0.0.1"]
+console.log(ipv4Parser("192.168.50.129", "255.255.255.192"));// ["192.168.50.128", "0.0.0.1"]
+console.log(ipv4Parser("192.168.2.130", "255.255.255.192"));// ["192.168.2.128", "0.0.0.2"]
+console.log(ipv4Parser("65.196.188.53", "255.255.240.0"));// ["65.196.176.0", "0.0.12.53"]
