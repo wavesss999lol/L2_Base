@@ -1,14 +1,7 @@
 const domainName = url => url.match(/^(?:https?:\/\/)?(?:www\.)?([^\.\/]+)(?:\.[a-zA-Z]{2,})/)[1];
 
-const tests = [
-    ["http://github.com/carbonfive/raygun", "github"],
-    ["http://www.zombie-bites.com", "zombie-bites"],
-    ["https://www.cnet.com", "cnet"],
-    ["www.xakep.ru", "xakep"],
-    ["icann.org", "icann"],
-];
-
-for (const [url, expected] of tests) {
-    const got = domainName(url);
-    console.log(got === expected ? "OK  " : "FAIL", url, "->", got);
-}
+console.log(domainName("http://github.com/carbonfive/raygun")); // "github"
+console.log(domainName("http://www.zombie-bites.com"));         // "zombie-bites"
+console.log(domainName("https://www.cnet.com"));                // "cnet"
+console.log(domainName("www.xakep.ru"));                        // "xakep"
+console.log(domainName("icann.org"));                           // "icann"
